@@ -26,7 +26,7 @@ export default function LoginPage() {
       setError(err.message);
       return;
     }
-    router.push("/dashboard");
+    router.push("/stats");
     router.refresh();
   };
 

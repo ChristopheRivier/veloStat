@@ -25,7 +25,7 @@ export default async function DashboardPage() {
     <div className="space-y-8">
       <h1 className="text-2xl font-bold text-slate-800">Mes trajets</h1>
       <AddRideForm userId={user.id} bikes={bikes ?? []} />
-      <RideList initialRides={rides ?? []} />
+      <RideList initialRides={rides ?? []} bikes={bikes ?? []} />
     </div>
   );
 }
