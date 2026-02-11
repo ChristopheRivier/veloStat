@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-type Props = { userId: string };
+type BikeOption = { id: string; name: string; brand: string };
+type Props = { userId: string; bikes: BikeOption[] };
 
-export function AddRideForm({ userId }: Props) {
+export function AddRideForm({ userId, bikes }: Props) {
   const [date, setDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
+  const [bikeId, setBikeId] = useState("");
   const [distanceKm, setDistanceKm] = useState("");
   const [durationMinutes, setDurationMinutes] = useState("");
   const [note, setNote] = useState("");
@@ -29,6 +31,7 @@ export function AddRideForm({ userId }: Props) {
     const supabase = createClient();
     const { error: err } = await supabase.from("rides").insert({
       user_id: userId,
+      bike_id: bikeId || null,
       date: date,
       distance_km: dist,
       duration_minutes: durationMinutes ? parseInt(durationMinutes, 10) : null,
@@ -69,6 +72,27 @@ export function AddRideForm({ userId }: Props) {
             required
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
           />
+        </div>
+        <div className="sm:col-span-2">
+          <label
+            htmlFor="bike"
+            className="mb-1 block text-sm font-medium text-slate-700"
+          >
+            Vélo (optionnel)
+          </label>
+          <select
+            id="bike"
+            value={bikeId}
+            onChange={(e) => setBikeId(e.target.value)}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+          >
+            <option value="">Aucun</option>
+            {bikes.map((b) => (
+              <option key={b.id} value={b.id}>
+                {b.name} ({b.brand})
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label

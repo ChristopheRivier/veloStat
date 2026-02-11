@@ -17,7 +17,8 @@ export function Nav() {
   };
 
   const isAuthPage = pathname === "/login" || pathname === "/signup";
-  const isApp = pathname === "/dashboard" || pathname === "/stats";
+  const isApp =
+    pathname === "/dashboard" || pathname === "/stats" || pathname === "/bikes";
 
   return (
     <nav className="border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -33,6 +34,12 @@ export function Nav() {
                 className={`text-sm ${pathname === "/dashboard" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Trajets
+              </Link>
+              <Link
+                href="/bikes"
+                className={`text-sm ${pathname === "/bikes" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+              >
+                Vélos
               </Link>
               <Link
                 href="/stats"

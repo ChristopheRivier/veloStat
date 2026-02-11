@@ -48,6 +48,11 @@ export function RideList({ initialRides }: Props) {
               {Number(ride.distance_km)} km
               {ride.duration_minutes != null &&
                 ` · ${ride.duration_minutes} min`}
+              {ride.bike && (
+                <span className="ml-1 text-slate-500">
+                  · {ride.bike.name}
+                </span>
+              )}
             </span>
             {ride.note && (
               <p className="mt-0.5 text-sm text-slate-500">{ride.note}</p>
