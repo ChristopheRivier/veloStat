@@ -21,7 +21,7 @@ export function Nav() {
     pathname === "/dashboard" || pathname === "/stats" || pathname === "/bikes";
 
   return (
-    <nav className="border-b border-slate-200 bg-white/80 backdrop-blur">
+    <nav className="border-b border-cyan-200/60 bg-cyan-100/90 backdrop-blur">
       <div className="container mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
         <Link href="/" className="text-lg font-semibold text-slate-800">
           Vélo Stats
@@ -29,6 +29,12 @@ export function Nav() {
         <div className="flex items-center gap-4">
           {isApp && (
             <>
+              <Link
+                href="/stats"
+                className={`text-sm ${pathname === "/stats" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+              >
+                Statistiques
+              </Link>
               <Link
                 href="/dashboard"
                 className={`text-sm ${pathname === "/dashboard" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
@@ -40,12 +46,6 @@ export function Nav() {
                 className={`text-sm ${pathname === "/bikes" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Vélos
-              </Link>
-              <Link
-                href="/stats"
-                className={`text-sm ${pathname === "/stats" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Statistiques
               </Link>
               <button
                 type="button"
