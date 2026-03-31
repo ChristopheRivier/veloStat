@@ -62,7 +62,7 @@ export function Nav() {
                 <button
                   type="button"
                   onClick={() => setAjoutOpen(!ajoutOpen)}
-                  className={`flex items-center gap-1 text-sm ${isAjout ? "font-bold text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+                  className={`flex items-center gap-1 text-sm ${isAjout ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
                 >
                   Ajout
                   <svg
@@ -101,7 +101,7 @@ export function Nav() {
                 <button
                   type="button"
                   onClick={() => setAccountOpen(!accountOpen)}
-                  className={`flex items-center gap-1 text-sm ${pathname === "/profile" ? "font-bold text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+                  className={`flex items-center gap-1 text-sm ${pathname === "/profile" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
