@@ -37,12 +37,6 @@ export default async function ProfilePage() {
             </dt>
             <dd className="text-sm capitalize text-slate-800">{createdAt}</dd>
           </div>
-          <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-4">
-            <dt className="w-40 shrink-0 text-sm font-medium text-slate-500">
-              Identifiant
-            </dt>
-            <dd className="font-mono text-xs text-slate-500">{user.id}</dd>
-          </div>
         </dl>
       </div>
 
