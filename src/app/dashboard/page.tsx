@@ -13,7 +13,8 @@ export default async function DashboardPage() {
   const { data: rides } = await supabase
     .from("rides")
     .select("*, bike:bikes(id, name, brand)")
-    .order("date", { ascending: false });
+    .order("date", { ascending: false })
+    .range(0, 19);
 
   const { data: bikes } = await supabase
     .from("bikes")

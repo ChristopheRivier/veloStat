@@ -86,21 +86,9 @@ export default async function StatsPage({ searchParams }: Props) {
           </p>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">Nombre de trajets</p>
-          <p className="text-2xl font-bold text-slate-800">{totalRides}</p>
-        </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <p className="text-sm font-medium text-slate-500">Ce mois</p>
           <p className="text-2xl font-bold text-slate-800">
             {monthKm.toFixed(0)} km
-          </p>
-        </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">Temps total</p>
-          <p className="text-2xl font-bold text-slate-800">
-            {totalMinutes >= 60
-              ? `${Math.floor(totalMinutes / 60)} h ${totalMinutes % 60} min`
-              : `${totalMinutes} min`}
           </p>
         </div>
       </div>

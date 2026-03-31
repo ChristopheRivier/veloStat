@@ -9,8 +9,10 @@ import { createClient } from "@/lib/supabase/client";
 export function Nav() {
   const pathname = usePathname();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [ajoutOpen, setAjoutOpen] = useState(false);
+  const accountRef = useRef<HTMLDivElement>(null);
+  const ajoutRef = useRef<HTMLDivElement>(null);
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -21,8 +23,11 @@ export function Nav() {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpen(false);
+      if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
+        setAccountOpen(false);
+      }
+      if (ajoutRef.current && !ajoutRef.current.contains(event.target as Node)) {
+        setAjoutOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -35,6 +40,8 @@ export function Nav() {
     pathname === "/stats" ||
     pathname === "/bikes" ||
     pathname === "/profile";
+
+  const isAjout = pathname === "/dashboard" || pathname === "/bikes";
 
   return (
     <nav className="border-b border-cyan-200/60 bg-cyan-100/90 backdrop-blur">
@@ -49,25 +56,52 @@ export function Nav() {
                 href="/stats"
                 className={`text-sm ${pathname === "/stats" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
               >
-                Statistiques
+                Home
               </Link>
-              <Link
-                href="/dashboard"
-                className={`text-sm ${pathname === "/dashboard" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Trajets
-              </Link>
-              <Link
-                href="/bikes"
-                className={`text-sm ${pathname === "/bikes" ? "font-medium text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Vélos
-              </Link>
-              <div className="relative" ref={menuRef}>
+              <div className="relative" ref={ajoutRef}>
                 <button
                   type="button"
-                  onClick={() => setOpen(!open)}
-                  className="flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900"
+                  onClick={() => setAjoutOpen(!ajoutOpen)}
+                  className={`flex items-center gap-1 text-sm ${isAjout ? "font-bold text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+                >
+                  Ajout
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-3 w-3 transition-transform ${ajoutOpen ? "rotate-180" : ""}`}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+                {ajoutOpen && (
+                  <div className="absolute left-0 mt-2 w-36 rounded-lg border border-slate-200 bg-white/50 py-1 shadow-md backdrop-blur">
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setAjoutOpen(false)}
+                      className={`flex items-center gap-2 px-4 py-2 text-sm hover:bg-slate-50 ${pathname === "/dashboard" ? "font-bold text-slate-900" : "text-slate-700"}`}
+                    >
+                      Trajets
+                    </Link>
+                    <Link
+                      href="/bikes"
+                      onClick={() => setAjoutOpen(false)}
+                      className={`flex items-center gap-2 px-4 py-2 text-sm hover:bg-slate-50 ${pathname === "/bikes" ? "font-bold text-slate-900" : "text-slate-700"}`}
+                    >
+                      Vélos
+                    </Link>
+                  </div>
+                )}
+              </div>
+              <div className="relative" ref={accountRef}>
+                <button
+                  type="button"
+                  onClick={() => setAccountOpen(!accountOpen)}
+                  className={`flex items-center gap-1 text-sm ${pathname === "/profile" ? "font-bold text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -82,10 +116,10 @@ export function Nav() {
                     <circle cx="12" cy="8" r="4" />
                     <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
                   </svg>
-                  Mon compte
+                  Compte
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
+                    className={`h-3 w-3 transition-transform ${accountOpen ? "rotate-180" : ""}`}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -96,12 +130,12 @@ export function Nav() {
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </button>
-                {open && (
-                  <div className="absolute right-0 mt-2 w-44 rounded-lg border border-slate-200 bg-white py-1 shadow-md">
+                {accountOpen && (
+                  <div className="absolute right-0 mt-2 w-44 rounded-lg border border-slate-200 bg-white/50 py-1 shadow-md backdrop-blur">
                     <Link
                       href="/profile"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                      onClick={() => setAccountOpen(false)}
+                      className={`flex items-center gap-2 px-4 py-2 text-sm hover:bg-slate-50 ${pathname === "/profile" ? "font-bold text-slate-900" : "text-slate-700"}`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -22,6 +22,10 @@ export function AddRideForm({ userId, bikes }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (!bikeId) {
+      setError("Veuillez sélectionner un vélo.");
+      return;
+    }
     const dist = parseFloat(distanceKm.replace(",", "."));
     if (Number.isNaN(dist) || dist < 0) {
       setError("Distance invalide");
@@ -78,15 +82,16 @@ export function AddRideForm({ userId, bikes }: Props) {
             htmlFor="bike"
             className="mb-1 block text-sm font-medium text-slate-700"
           >
-            Vélo (optionnel)
+            Vélo
           </label>
           <select
             id="bike"
             value={bikeId}
             onChange={(e) => setBikeId(e.target.value)}
+            required
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
           >
-            <option value="">Aucun</option>
+            <option value="" disabled>Sélectionner un vélo</option>
             {bikes.map((b) => (
               <option key={b.id} value={b.id}>
                 {b.name} ({b.brand})
